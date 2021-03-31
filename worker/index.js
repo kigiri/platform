@@ -27,8 +27,7 @@ handlers['/github'] = async (params) => {
     return new Response(authBody.get('error_description'), BAD_REQUEST)
   }
 
-  console.log(Object.fromEntries(authBody))
-  // get the login
+  // get user data
   const query = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
@@ -38,12 +37,16 @@ handlers['/github'] = async (params) => {
     },
     body: JSON.stringify({ query: '{ viewer { login id name }}' }),
   })
+
   const tmpTxt = await query.text()
-  console.log({ tmpTxt })
-  const { data, errors } = JSON.parse(tmpTxt)
-  if (errors) {
-    console.log(errors)
-    return new Response(errors[0].message, INTERNAL)
+  try {
+    const { data, errors } = JSON.parse(tmpTxt)
+    if (errors) {
+      console.log(errors)
+      return new Response(errors[0].message, INTERNAL)
+    }
+  } catch {
+    new Response(tmpTxt, INTERNAL)
   }
 
   // create the user
