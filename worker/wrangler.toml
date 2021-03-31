@@ -1,0 +1,10 @@
+name = "nan"
+type = "javascript"
+account_id = "da648930d3f75dbd7d922088dab5ac0b"
+workers_dev = true
+zone_id = ""
+vars = { ENVIRONMENT = "dev" }
+kv_namespaces = [
+  { binding = "NAN", id = "511a4886ceb74abc988f679f03934948" }
+]
+ 
