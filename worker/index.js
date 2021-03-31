@@ -8,6 +8,8 @@ const TYPE_JSON = { 'content-type': 'application/json' }
 const rand = () => Math.random().toString(36).slice(2, 12).padEnd(10, '0')
 
 const handlers = {}
+
+handlers['/ping'] = async (params) => new Response('', SUCCESS)
 handlers['/github'] = async (params) => {
   const state = params.get('state')
   const code = params.get('code')
