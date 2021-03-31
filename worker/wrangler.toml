@@ -5,6 +5,6 @@ workers_dev = true
 zone_id = ""
 vars = { ENVIRONMENT = "dev" }
 kv_namespaces = [
-  { binding = "NAN", id = "511a4886ceb74abc988f679f03934948" }
+  { binding = "NAN", id = "511a4886ceb74abc988f679f03934948", preview_id = "0e8e36922e74427aa2223287db457bd1" }
 ]
  

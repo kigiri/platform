@@ -2,6 +2,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "./dev.sh",
+    "test": "./test.sh",
     "build": "./build.sh"
   },
   "dependencies": {
