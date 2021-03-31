@@ -6,9 +6,17 @@ const INTERNAL = { status: 500, statusText: 'Internal Server Error' }
 const NOT_FOUND = { status: 404, statusText: 'Not Found' }
 const TYPE_JSON = { 'content-type': 'application/json' }
 const rand = () => Math.random().toString(36).slice(2, 12).padEnd(10, '0')
+const gql = async query => {
+  const text = await query.text()
+  try {
+    const { data, errors } = JSON.parse(text)
+    return { data, error: errors && errors[0].message }
+  } catch {
+    return { error: text }
+  }
+} 
 
 const handlers = {}
-
 handlers['/ping'] = async (params) => new Response('', SUCCESS)
 handlers['/github'] = async (params) => {
   const state = params.get('state')
@@ -40,16 +48,8 @@ handlers['/github'] = async (params) => {
     body: JSON.stringify({ query: '{ viewer { login id name }}' }),
   })
 
-  const tmpTxt = await query.text()
-  try {
-    const { data, errors } = JSON.parse(tmpTxt)
-    if (errors) {
-      console.log(errors)
-      return new Response(errors[0].message, INTERNAL)
-    }
-  } catch {
-    new Response(tmpTxt, INTERNAL)
-  }
+  const { data, error } = await gql(query)
+  if (error) return new Response(error, INTERNAL)
 
   // create the user
   const { id, login, name } = data.viewer
@@ -58,7 +58,6 @@ handlers['/github'] = async (params) => {
   await NAN.put(`u:${sid}`, JSON.stringify(user))
   return Response.redirect(`https://nan.oct.ovh?${new URLSearchParams(user)}`, 301)
 }
-
 
 const handleRequest = (event) => {  
   const { searchParams, pathname } = new URL(event.request.url)
