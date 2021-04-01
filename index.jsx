@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { Github, Discord } from './icons.jsx'
 import * as React from 'react'
 
-import { githubUrl, discordUrl, user } from './oauth.js'
+import { user } from './auth.js'
 
 // import { FiGithub } from 'react-icons/fi'
 window.React = React
@@ -34,14 +34,14 @@ render(
       {user ? (
         <>
           <b>Welcome {user.name}</b>
-          <a href={discordUrl}>
+          <a href="/api/link/discord">
             <b>
               <Discord style={{ marignLeft: '2em' }} /> connect discord
             </b>
           </a>
         </>
       ) : (
-        <a href={githubUrl}>
+        <a href="/api/link/github">
           <b>
             <Github style={{ marignLeft: '2em' }} /> Login with Github
           </b>
