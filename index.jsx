@@ -12,27 +12,44 @@ render(
   <header>
     <nav>
       <ul>
-        <li>Menu Item 1</li>
-        <li><a href="#">Menu Item 2</a></li>
+        <li>Logo</li>
+        <li>
+          <a href="#">about us</a>
+        </li>
       </ul>
       <ul>
-        <li><a href="#">Github</a></li>
+        <li>
+          <a href="#">Github</a>
+        </li>
       </ul>
     </nav>
-    <h1><code>NaN</code> Platform</h1>
-    <p>Page Subheading with <mark>highlighting</mark></p>
+    <h1>
+      <code>NaN</code> Platform
+    </h1>
+    <p>
+      Page Subheading with <mark>highlighting</mark>
+    </p>
     <br />
     <p>
-      {user
-        ? <>
-            <b>Welcome {user.name}</b>
-            <a href={discordUrl}><b><Discord style={{marignLeft: '2em'}} /> connect discord</b></a>
-          </>
-        : <a href={githubUrl}><b><Github style={{marignLeft: '2em'}} /> Login with Github</b></a>
-      }
+      {user ? (
+        <>
+          <b>Welcome {user.name}</b>
+          <a href={discordUrl}>
+            <b>
+              <Discord style={{ marignLeft: '2em' }} /> connect discord
+            </b>
+          </a>
+        </>
+      ) : (
+        <a href={githubUrl}>
+          <b>
+            <Github style={{ marignLeft: '2em' }} /> Login with Github
+          </b>
+        </a>
+      )}
     </p>
   </header>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 
 const wesh = Eve()
